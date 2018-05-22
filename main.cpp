@@ -29,12 +29,18 @@ void setHandler(void (*handler)(int,siginfo_t *,void *)) {
 void faultHandler(int signo, siginfo_t* info, void* extra) {
 	int i;
 
-	i = ((ucontext_t*)extra)->uc_mcontext.gregs[REG_RIP];	// x86_64
-	//i = ((ucontext_t*)extra)->uc_mcontext.arm_pc;		// ARM
+	#ifdef __x86_64__
+		i = ((ucontext_t*)extra)->uc_mcontext.gregs[REG_RIP];
+	#elif __arm__
+		i = ((ucontext_t*)extra)->uc_mcontext.arm_pc;
+	#else
+		#error Compiling for invalid architecture.
+	#endif
 
 	std::cout << "Fout " << (int)signo << " at ";
 	std::cout << (int&)info->si_addr << ": " << std::endl;
 	std::cout << "Called from " << (int)i << "." << std::endl;
+	std::cout << "Compiled at: " << __DATE__ << " " << __TIME__ << std::endl;
 
 	abort();
 }

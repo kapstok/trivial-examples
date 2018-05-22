@@ -16,6 +16,7 @@ Running `./exe` results in this output:
 ```
 Fout 11 at 0: 
 Called from 4197438.
+Compiled at: May 22 2018 13:58:27
 Aborted (geheugendump gemaakt)
 ```
 
