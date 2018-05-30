@@ -1,7 +1,22 @@
-#include <iostream>
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
 
 #include <unistd.h>
 #include <signal.h>
+#include <syslog.h>
+
+#ifdef __cplusplus
+	#include <iostream>
+	#define ERR(X) std::cerr << X
+	#define ABRT() std::abort()
+#else
+	#include <ucontext.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#define ERR(X) perror(X)
+	#define ABRT() abort()
+#endif
 
 void setHandler(void (*handler)(int,siginfo_t *,void *)) {
 	struct sigaction action;
@@ -9,19 +24,19 @@ void setHandler(void (*handler)(int,siginfo_t *,void *)) {
 	action.sa_sigaction = handler;
 
 	if (sigaction(SIGFPE, &action, NULL) == -1) {
-		std::cerr << "sigfpe: sigaction";
+		ERR("sigfpe: sigaction");
 		_exit(1);
 	}
 	if (sigaction(SIGSEGV, &action, NULL) == -1) {
-		std::cerr << "sigsegv: sigaction";
+		ERR("sigsegv: sigaction");
 		_exit(1);
 	}
 	if (sigaction(SIGILL, &action, NULL) == -1) {
-		std::cerr << "sigill: sigaction";
+		ERR("sigill: sigaction");
 		_exit(1);
 	}
 	if (sigaction(SIGBUS, &action, NULL) == -1) {
-		std::cerr << "sigbus: sigaction";
+		ERR("sigbus: sigaction");
 		_exit(1);
 	}
 }
@@ -37,16 +52,19 @@ void faultHandler(int signo, siginfo_t* info, void* extra) {
 		#error Compiling for invalid architecture.
 	#endif
 
-	std::cout << "Fout " << (int)signo << " at ";
-	std::cout << (int&)info->si_addr << ": " << std::endl;
-	std::cout << "Called from " << (int)i << "." << std::endl;
-	std::cout << "Compiled at: " << __DATE__ << " " << __TIME__ << std::endl;
+	openlog("postmortem-debugging", LOG_PERROR | LOG_PID, LOG_LOCAL0);
 
-	abort();
+	syslog(LOG_ERR, "Error %d at %p:\n", signo, info->si_addr);
+	syslog(LOG_ERR, "Called from %p.\n", i);
+	syslog(LOG_ERR, "Compiled at: %s %s\n", __DATE__, __TIME__);
+
+	closelog();
+
+	ABRT();
 }
 
 int main() {
-	int* badptr = nullptr;
+	int* badptr = NULL;
 
 	setHandler(faultHandler);
 
