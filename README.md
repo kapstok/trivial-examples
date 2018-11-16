@@ -18,7 +18,7 @@ Running `./exe` results in this output:
 
 ```
 Error 11 at (nil):
-Called from 0x40233f
+Called from 0x400a48
 Compiled at: May 30 2018 09:24:41
 Aborted (geheugendump gemaakt)
 ```
@@ -35,7 +35,7 @@ Possible output would be:
 
 ```
 May 30 09:38:14 localhost postmortem-debugging[14671]: Error 11 at (nil):
-May 30 09:38:14 localhost postmortem-debugging[14671]: Called from 0x40233f.
+May 30 09:38:14 localhost postmortem-debugging[14671]: Called from 0x400a48.
 May 30 09:38:14 localhost postmortem-debugging[14671]: Compiled at: May 30 2018 09:24:41
 ```
 
@@ -48,13 +48,13 @@ $ gdb ./dbgexe
 Then you need to use the information from the log file. Execute this code in `gdb`:
 
 ```
-l *0x40233f
+l *0x400a48
 ```
 
-> Use the output from running ./exe ('Called from 0x40233f').
+> Use the output from running ./exe ('Called from 0x400a48').
 
-As `gdb` states, the error was caused at line 57:
+As `gdb` states, the error was caused at line 71:
 
 ```
-0x40233f is in main() (main.cpp:71).
+0x400a48 is in main() (main.cpp:71).
 ```
