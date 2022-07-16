@@ -1,0 +1,15 @@
+{
+	"authors": [
+		"Jan Allersma"
+	],
+	"copyright": "Copyright © 2020, Jan Allersma",
+	"description": "Service to prevent annoying audio ticks",
+	"license": "MIT",
+	"name": "black-noise-generator",
+    "buildOptions": ["releaseMode"],
+    "buildTypes": {
+        "debug": {
+            "buildOptions": ["releaseMode"]
+        }
+    }
+}

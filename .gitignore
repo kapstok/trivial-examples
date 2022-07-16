@@ -14,3 +14,21 @@ Boot_programming/bootloader/*.img
 Boot_programming/bootloader/*.bin
 *.o
 dist
+
+# Black noise generator
+.dub
+docs.json
+__dummy.html
+docs/
+/tivoli-service
+tivoli-service.so
+tivoli-service.dylib
+tivoli-service.dll
+tivoli-service.a
+tivoli-service.lib
+tivoli-service-test-*
+*.exe
+*.o
+*.obj
+*.lst
+

@@ -18,3 +18,8 @@ language D and use it in arbitrary Ruby code.
 
 C(++) code can crash due to an error. This example shows how to examine
 the error after the crash occurred.
+
+## [Black noise generator](black-noise-generator)
+A project that plays black noise (silent audio).
+
+
