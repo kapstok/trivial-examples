@@ -8,27 +8,27 @@ d-to-ruby-ffi/*.so
 d-to-ruby-ffi/*.o
 
 # Bytecode OS
-Boot_programming/bootloader/build
-Boot_programming/bootloader/*.iso
-Boot_programming/bootloader/*.img
-Boot_programming/bootloader/*.bin
-*.o
-dist
+bytecode-os/Boot_programming/bootloader/build
+bytecode-os/Boot_programming/bootloader/*.iso
+bytecode-os/Boot_programming/bootloader/*.img
+bytecode-os/Boot_programming/bootloader/*.bin
+bytecode-os/*.o
+bytecode-os/dist
 
 # Black noise generator
-.dub
-docs.json
-__dummy.html
-docs/
-/tivoli-service
-tivoli-service.so
-tivoli-service.dylib
-tivoli-service.dll
-tivoli-service.a
-tivoli-service.lib
-tivoli-service-test-*
-*.exe
-*.o
-*.obj
-*.lst
+black-noise-generator/.dub
+black-noise-generator/docs.json
+black-noise-generator/__dummy.html
+black-noise-generator/docs/
+black-noise-generator/tivoli-service
+black-noise-generator/tivoli-service.so
+black-noise-generator/tivoli-service.dylib
+black-noise-generator/tivoli-service.dll
+black-noise-generator/tivoli-service.a
+black-noise-generator/tivoli-service.lib
+black-noise-generator/tivoli-service-test-*
+black-noise-generator/*.exe
+black-noise-generator/*.o
+black-noise-generator/*.obj
+black-noise-generator/*.lst
 
