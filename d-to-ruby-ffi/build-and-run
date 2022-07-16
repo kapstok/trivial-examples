@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# http://downloads.dlang.org/releases/2022/dmd-2.100.0-0.fedora.x86_64.rpm
+# sudo dnf install /tmp/dmd-2.100.0-0.fedora.x86_64.rpm
+# sudo dnf install ruby ruby-devel
+
+dmd -g -c i.d -fPIC
+ld -shared -o i.so i.o -lrt -lphobos2
+ruby ./user.rb

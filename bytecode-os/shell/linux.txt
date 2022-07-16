@@ -1,0 +1,3 @@
+nasm -f elf vm.asm -o dist/linux.o
+gcc -o dist/linux.elf dist/linux.o -nostartfiles -nostdlib -nodefaultlibs -m32 -Os
+strip -s dist/linux.elf

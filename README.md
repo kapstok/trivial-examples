@@ -1,60 +1,20 @@
-# Fault handling
+# Trivial examples
 
-When the application crashes, e.g. due to derefencing `NULL`, a dump will be made.
-The dump will be shown on the Terminal and will saved in a log file called `/var/log/messages`.
+This repository contains several trivial example which can be used as
+fundament for actual projects. Below a short overview of each example.
 
-## Compiling
+## [Bytecode OS](bytecode-os)
 
-> Commands executed from repository's root.
+An example on how to create the most basic kernel that processes
+given bytecode. A bootloader is included, so it is bootable and can be
+run as virtual machine.
 
-```
-g++ main.c -o exe
-g++ main.c -g -o dbgexe
-```
+## [D to Ruby FFI](d-to-ruby-ffi)
 
-## Post mortem debugging
+This example shows how to compile a shared library in the programming
+language D and use it in arbitrary Ruby code.
 
-Running `./exe` results in this output:
+## [Post mortem debugging](post-mortem-debugging)
 
-```
-Error 11 at (nil):
-Called from 0x400a48
-Compiled at: May 30 2018 09:24:41
-Aborted (geheugendump gemaakt)
-```
-
-In order to read the dump from the log file, while filtering all log info from other applications, one should execute the following command in a Terminal:
-
-```
-# cat /var/log/messages | grep "postmortem-debugging" | sed 's/#012/\n\t/g' | less
-```
-
-> Syslog turns newlines ('\n') in '#012'. The sed command reverts that.
-
-Possible output would be:
-
-```
-May 30 09:38:14 localhost postmortem-debugging[14671]: Error 11 at (nil):
-May 30 09:38:14 localhost postmortem-debugging[14671]: Called from 0x400a48.
-May 30 09:38:14 localhost postmortem-debugging[14671]: Compiled at: May 30 2018 09:24:41
-```
-
-Let's see what caused the error by executing this one-liner:
-
-```
-$ gdb ./dbgexe
-```
-
-Then you need to use the information from the log file. Execute this code in `gdb`:
-
-```
-l *0x400a48
-```
-
-> Use the output from running ./exe ('Called from 0x400a48').
-
-As `gdb` states, the error was caused at line 71:
-
-```
-0x400a48 is in main() (main.cpp:71).
-```
+C(++) code can crash due to an error. This example shows how to examine
+the error after the crash occurred.

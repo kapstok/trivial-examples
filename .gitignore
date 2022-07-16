@@ -1,4 +1,16 @@
-*
-!.gitignore
-!main.c
-!README.md
+# Post mortem debugging
+post-mortem-debugging/*
+!post-mortem-debugging/main.c
+!post-mortem-debugging/README.md
+
+# D to Ruby FFI
+d-to-ruby-ffi/*.so
+d-to-ruby-ffi/*.o
+
+# Bytecode OS
+Boot_programming/bootloader/build
+Boot_programming/bootloader/*.iso
+Boot_programming/bootloader/*.img
+Boot_programming/bootloader/*.bin
+*.o
+dist
