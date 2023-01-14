@@ -5,6 +5,7 @@ VOLUMELABEL = MYOS
 BUILDDIR = build
 
 all:
+	make clean
 	mkdir ${BUILDDIR}
 	nasm -f bin -o ${BIN} ${SOURCE}
 	dd bs=1024 if=/dev/zero of=${IMG}.img count=1440

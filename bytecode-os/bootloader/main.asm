@@ -21,13 +21,22 @@ start:
 
 data:
 	message db 'Bootloader booted.',0
+	nlmsg db 'Pressed ', 39, 'a', 39, '!',0
 
 read:
-	mov ah, 0h	; Get char
+	mov ah, 0h	; Get char (I guess). It is a follow-up for 'int 16h' and further
+	mov cx, ax	; Set inputted character to cx
+	cmp cx, 'a' ; if (cx == 'a') {
+	je .showmsg ; .showmsg }
 	int 16h		; puts(char)
 	mov ah, 0Eh;call print	; display(char)
 	int 10h		; echo char
 	jmp read	; start over again.
+
+.showmsg:
+	mov si, nlmsg
+	call print
+	jmp read
 
 print:
 	mov ah, 0Eh
