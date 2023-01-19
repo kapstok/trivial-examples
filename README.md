@@ -9,6 +9,12 @@ An example on how to create the most basic kernel that processes
 given bytecode. A bootloader is included, so it is bootable and can be
 run as virtual machine.
 
+Further reading:
+
+https://wiki.osdev.org/Babystep5
+http://www.brokenthorn.com/Resources/OSDev4.html
+http://3zanders.co.uk/2017/10/18/writing-a-bootloader3/
+
 ## [D to Ruby FFI](d-to-ruby-ffi)
 
 This example shows how to compile a shared library in the programming

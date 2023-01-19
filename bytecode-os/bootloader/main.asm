@@ -2,6 +2,8 @@
 ; Gespiekt vanaf https://wiki.osdev.org/Babystep4
 ; TODO: na deze code gecombineerd te hebben met implementatie op master, https://wiki.osdev.org/Babystep5
 ; NOTE TO SELF: enter is eigenlijk (\r = 10 met \n = 13) 
+; Mooiere tutorial: http://www.brokenthorn.com/Resources/OSDev4.html
+; Nog mooiere tutorial: http://3zanders.co.uk/2017/10/18/writing-a-bootloader3/
 BITS 16
 
 start:
@@ -25,6 +27,56 @@ start:
        call sprint
        cli             ; Disable External interrupts
        hlt             ; Halt CPU.
+
+check_a20:
+    pushf
+    push ds
+    push es
+    push di
+    push si
+
+    cli
+
+    xor ax, ax ; ax = 0
+    mov es, ax
+
+    not ax ; ax = 0xFFFF
+    mov ds, ax
+
+    mov di, 0x0500
+    mov si, 0x0510
+
+    mov al, byte [es:di]
+    push ax
+
+    mov al, byte [ds:si]
+    push ax
+
+    mov byte [es:di], 0x00
+    mov byte [ds:si], 0xFF
+
+    cmp byte [es:di], 0xFF
+
+    pop ax
+    mov byte [ds:si], al
+
+    pop ax
+    mov byte [es:di], al
+
+    mov ax, 0
+    je check_a20__exit
+
+    mov ax, 1
+    ret
+
+check_a20__exit:
+    pop si
+    pop di
+    pop es
+    pop ds
+    popf
+
+    ret
 
 ;start:
 ;[ORG 0x7c00]      ; add to offsets
@@ -115,3 +167,9 @@ cprint:
 
 times 510-($-$$) db 0	; Fill 510 bytes with this bootloader.
 dw 0xAA55		; Bootloader signature: EOF & Geeft aan dat dit een bootloader is.
+
+;[ORG 0x7F00]
+;org 0x1000
+outside:
+   call sprint
+   ret
