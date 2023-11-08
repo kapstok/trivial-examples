@@ -1,0 +1,9 @@
+#!/bin/bash
+
+gcc main.c -o original
+cp -v original injected
+START_INJECT=`grep -ob --binary --text "1234567890" ./injected | grep -o '^[0-9]*'`
+FILE_SIZE=`wc -c original | grep -o '^[0-9]* '`
+echo $START_INJECT
+echo $FILE_SIZE
+printf "${FILE_SIZE}\n\x00" | dd of=injected bs=1 seek=$START_INJECT count=`expr ${#FILE_SIZE} + 2` conv=notrunc

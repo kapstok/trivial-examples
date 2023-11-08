@@ -22,4 +22,7 @@ the error after the crash occurred.
 ## [Black noise generator](black-noise-generator)
 A project that plays black noise (silent audio).
 
-
+## [Executable File Patching](executable-file-patching)
+This demonstrates how one can compile an exectable and let the executable show
+its own size without using File I/O. It is a technique where information gets
+injected into the executable directly.
