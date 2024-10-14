@@ -26,3 +26,11 @@ A project that plays black noise (silent audio).
 This demonstrates how one can compile an exectable and let the executable show
 its own size without using File I/O. It is a technique where information gets
 injected into the executable directly.
+
+## [(Logical) lines of code](lloc.py)
+This is a script that is just added for educational purposes.
+One can see that (logical) lines of code can be counted using lexical tools.
+In this case, we use Regex in combination with Python. Note that developing
+such analysis tools should actually be avoided for actual usage. One can
+develop tool to get better understanding of code quality, but should use
+tools like Sonar to actually indicate the quality of code.
